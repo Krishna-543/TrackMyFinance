@@ -100,7 +100,7 @@ def add_transaction():
         # Ensure form field names match model column names
         transaction = Transaction(
             amount=float(request.form['amount']),
-            transaction_type=request.form['transaction_type'],  # This should match the form input name
+            transaction_type=request.form['transaction_type'],  
             description=request.form['description'],
             category=request.form['category'],
             user_id=current_user.id
@@ -114,26 +114,21 @@ def add_transaction():
 @app.route('/charts')
 @login_required
 def charts():
-    # Fetch expense transactions for the current user
     transactions = Transaction.query.filter_by(user_id=current_user.id, transaction_type='expense').all()
 
-    # Create categories dictionary
     categories = {}
     
     for t in transactions:
         categories[t.category] = categories.get(t.category, 0) + t.amount
     
-    # Debug: Check if categories has data
     print("Categories data:", categories)
 
-    # Prepare bar chart data
     bar_data = {
         'x': list(categories.keys()),  # Categories
         'y': list(categories.values()),  # Spending amounts
         'type': 'bar'  # Type of chart: bar
     }
 
-    # Prepare pie chart data
     pie_data = {
         'labels': list(categories.keys()),  # Categories
         'values': list(categories.values()),  # Spending amounts
