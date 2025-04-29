@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+
+        /* Hero Section - Matching Home Page */
+        .jumbotron {
+            background-color: #007bff;
+            color: white;
+            padding: 2rem 1rem;
+            border-radius: 0.3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Navbar - Matching Home Page */
+        .navbar {
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            padding: 10px 15px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        /* Original Dashboard Styles (unchanged) */
+          /* Dashboard Cards */
+          .card {
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .total-income-card {
+            background-color: #a9eab8; /* Light green */
+            border-left: 5px solid #0d7625; /* Dark green border */
+        }
+
+        .total-expenses-card {
+            background-color: #fcc6ca; /* Light red */
+            border-left: 5px solid #dc3545; /* Dark red border */
+        }
+
+        .current-balance-card {
+            background-color: #cce5ff; /* Light blue */
+            border-left: 5px solid #007bff; /* Dark blue border */
+        }
+
+        .card-body h5 {
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .card-body p {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .table {
+            background-color: rgb(230, 235, 237);
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar - Matching Home Page -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Finance Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_transaction') }}">Add Transaction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('charts') }}">Spending Visualization</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Matching Home Page -->
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1 class="display-4">Welcome to Finance Tracker</h1>
+            <p class="lead">Stay on top of your income sources. View detailed insights to make smarter financial decisions.</p>
+        </div>
+    </div>
+
+    <!-- Original Dashboard Content (unchanged) -->
+    <div class="container mt-5">
+        <h1 class="text-center">Dashboard Overview</h1>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card total-income-card">
+                    <div class="card-body">
+                        <h5>Total Income</h5>
+                        <p>₹ {{ total_income }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card total-expenses-card">
+                    <div class="card-body">
+                        <h5>Total Expenses</h5>
+                        <p>₹ {{ total_expenses }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card current-balance-card">
+                    <div class="card-body">
+                        <h5>Current Balance</h5>
+                        <p>₹ {{ current_balance }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="mt-5">Recent Transactions</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Transaction Type</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in recent_transactions %}
+                <tr>
+                    <td>{{ t.transaction_type }}</td>
+                    <td>₹ {{ t.amount }}</td>
+                    <td>{{ t.description }}</td>
+                    <td>{{ t.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

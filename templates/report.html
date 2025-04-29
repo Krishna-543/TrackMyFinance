@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Transaction Report - Finance Tracker{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Transaction Report</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Transaction Type</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in transactions %}
+            <tr>
+                <td>{{ t.transaction_type }}</td>
+                <td>₹ {{ t.amount }}</td>
+                <td>{{ t.description }}</td>
+                <!-- Changed t.date to t.timestamp here -->
+                <td>{{ t.timestamp.strftime('%Y-%m-%d') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No transactions available.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

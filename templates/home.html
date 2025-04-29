@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Finance Tracker{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="jumbotron text-center text-white py-3 rounded" style="background-color: #007bff; min-height: 30vh;">
+    <div class="container">
+        <h1 class="display-4 font-weight-bold" style="font-size: 2rem;">Take Control of Your Finances</h1>
+        <p class="lead mb-3" style="font-size: 1rem;">Manage your income, track expenses, and plan for a secure financial future.</p>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-light btn-lg mx-3" href="{{ url_for('register') }}" role="button">Get Started</a>
+            <a class="btn btn-warning btn-lg mx-3" href="{{ url_for('login') }}" role="button">Login</a>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container py-5">
+    <h2 class="text-center mb-4" style="color: #2c3e50;">Why Choose Finance Tracker?</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-lg border-light" style="border-radius: 10px;">
+                <div class="card-body text-center" style="background-color: #ecf0f1; padding: 30px;">
+                    <img src="{{ url_for('static', filename='images/income.svg') }}" class="card-img-top mb-4" alt="Track Income" style="height: 80px;">
+                    <h5 class="card-title" style="color: #2980b9;">Track Your Income</h5>
+                    <p class="card-text" style="color: #7f8c8d;">Stay on top of your income sources. View detailed insights to make smarter financial decisions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-lg border-light" style="border-radius: 10px;">
+                <div class="card-body text-center" style="background-color: #ecf0f1; padding: 30px;">
+                    <img src="{{ url_for('static', filename='images/expenses.svg') }}" class="card-img-top mb-4" alt="Track Expenses" style="height: 80px;">
+                    <h5 class="card-title" style="color: #e67e22;">Manage Your Expenses</h5>
+                    <p class="card-text" style="color: #7f8c8d;">Monitor your spending habits and create a budget that fits your needs. Identify areas to save more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-lg border-light" style="border-radius: 10px;">
+                <div class="card-body text-center" style="background-color: #ecf0f1; padding: 30px;">
+                    <img src="{{ url_for('static', filename='images/dashboard.svg') }}" class="card-img-top mb-4" alt="User Dashboard" style="height: 80px;">
+                    <h5 class="card-title" style="color: #16a085;">Personalized Dashboard</h5>
+                    <p class="card-text" style="color: #7f8c8d;">Get a clear, user-friendly overview of your financial health, reports, and progress towards your goals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="mb-4" style="color: #2c3e50;">What Our Users Say</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <blockquote class="blockquote" style="background-color: #fff; border-left: 5px solid #007bff; padding: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                    <p class="mb-0" style="color: #2c3e50;">"This tool has completely changed the way I manage my finances. It's so easy to track everything!"</p>
+                    <p><footer class="blockquote-footer" style="color: #ba1414e3;">John Doe, Entrepreneur</footer></p>
+                </blockquote>
+            </div>p
+            <div class="col-md-4">
+                <blockquote class="blockquote" style="background-color: #fff; border-left: 5px solid #007bff; padding: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                    <p class="mb-0" style="color: #2c3e50;">"Finally, a tool that helps me budget, track expenses, and set goals without feeling overwhelmed."</p>
+                    <p><footer class="blockquote-footer" style="color: #b71a15;">Sarah Lee, Freelancer</footer></p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer Section -->
+<footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <p class="mb-0" style="font-size: 14px;">&copy; 2025 Finance Tracker. All rights reserved.</p>
+        <a href="#" class="btn btn-outline-light btn-sm mt-2" style="font-size: 12px;">Back to Top</a>
+    </div>
+</footer>
+
+{% endblock %}
